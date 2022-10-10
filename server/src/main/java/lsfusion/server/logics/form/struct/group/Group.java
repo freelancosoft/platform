@@ -15,6 +15,7 @@ import lsfusion.server.base.controller.thread.ThreadLocalContext;
 import lsfusion.server.base.version.NFFact;
 import lsfusion.server.base.version.Version;
 import lsfusion.server.base.version.interfaces.NFOrderSet;
+import lsfusion.server.language.form.ScriptingFormEntity;
 import lsfusion.server.logics.classes.ValueClass;
 import lsfusion.server.logics.form.struct.ValueClassWrapper;
 import lsfusion.server.logics.form.struct.property.oraction.ActionOrPropertyClassImplement;
@@ -190,7 +191,7 @@ public class Group extends AbstractNode {
     }
 
     public String getIntegrationSID() {
-        return integrationSID != null ? integrationSID : getName();
+        return integrationSID != null ? (ScriptingFormEntity.isNoExtID(integrationSID) ? null : integrationSID) : getName();
     }
     
     // todo [dale]: Используется для идентификации групп свойств в reflection, желательно перевести на canonical names

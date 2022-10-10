@@ -36,8 +36,12 @@ public class PropertyGroupParseNode extends GroupParseNode implements ChildParse
         boolean upDown = node.isUpDown();
         if(!upDown)
             hasNotEmptyChild = exportChildrenNodes(newNode, upValues, exportData);
-        if(hasNotEmptyChild)
-            node.addNode(node, getKey(), newNode);
+        if(hasNotEmptyChild) {
+            String key = getKey();
+            if(key == null)
+                return false;
+            node.addNode(node, key, newNode);
+        }
         if(upDown) {
             hasNotEmptyChild = exportChildrenNodes(newNode, upValues, exportData);
             if(!hasNotEmptyChild)

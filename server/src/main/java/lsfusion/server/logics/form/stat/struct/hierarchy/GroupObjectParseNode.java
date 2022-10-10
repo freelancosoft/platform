@@ -96,7 +96,11 @@ public class GroupObjectParseNode extends GroupParseNode implements ChildParseNo
             mMap.add(new Pair<>(new Pair<>(objectValue, objectClass), newNode));
         }
         ImList<Pair<Pair<Object, DataClass>, T>> map = mMap.immutableList();
-        boolean isNotEmpty = node.addMap(node, getKey(), isIndex, map);
+        String key = getKey();
+        if(key == null)
+            return false;
+
+        boolean isNotEmpty = node.addMap(node, key, isIndex, map);
 
         if(upDown) {
             for(int j=0,size=map.size();j<size;j++) {

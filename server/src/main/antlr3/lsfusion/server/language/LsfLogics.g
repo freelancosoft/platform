@@ -379,12 +379,12 @@ groupStatement
 }
 @after {
 	if (inMainParseState() && !isNative) {
-		self.addScriptedGroup($groupNameCaption.name, $groupNameCaption.caption, $extID.val, parent);
+		self.addScriptedGroup($groupNameCaption.name, $groupNameCaption.caption, $extID.extID, parent);
 	}
 }
 	:	'GROUP' ('NATIVE' { isNative = true; })?
 		groupNameCaption=simpleNameWithCaption
-		('EXTID' extID=stringLiteral)?
+		(extID = extIdOption)?
 		(':' parentName=compoundID { parent = $parentName.sid; })?
 		';'
 	;
@@ -570,7 +570,7 @@ formGroupObjectOptions[ScriptingGroupObject groupObject]
 		|	update=formGroupObjectUpdate { $groupObject.setUpdateType($update.updateType); }
 		|	relative=formGroupObjectRelativePosition { $groupObject.setNeighbourGroupObject($relative.groupObject, $relative.insertType); }
 		|	group=formGroupObjectGroup { $groupObject.setPropertyGroupName($group.formObjectGroup); }
-		|   extID=formExtID { $groupObject.setIntegrationSID($extID.extID); }
+		|   extID=extIdOption { $groupObject.setIntegrationSID($extID.extID); }
 		|   formExtKey { $groupObject.setIntegrationKey(true); }
 		|   formSubReport { $groupObject.setSubReport($formSubReport.pathProperty);  }
 		)*
@@ -732,10 +732,6 @@ formGroupObjectGroup returns [String formObjectGroup]
 	:	'IN' groupName=compoundID { $formObjectGroup = $groupName.sid; }
 	;
 
-formExtID returns [String extID]
-	:	'EXTID' id=stringLiteral { $extID = $id.val; }
-	;
-
 formExtKey
 	:	'EXTKEY'
 	;
@@ -769,7 +765,7 @@ formObjectDeclaration returns [String name, String className, LocalizedString ca
 		id=classId { $className = $id.sid; }
 		(
 		    'ON' 'CHANGE' faprop=formActionObject { $event = $faprop.action; }
-		|   'EXTID' eid=stringLiteral { $extID = $eid.val; }
+		|   ext = extIdOption { $extID = $ext.extID; }
 		)*
 	; 
 	
@@ -842,7 +838,7 @@ formPropertyOptionsList returns [FormPropertyOptions options]
 		|	'EVENTID' id=stringLiteral { $options.setEventId($id.val); }
 		|	'ATTR' { $options.setAttr(true); }
 		|   'IN' groupName=compoundID { $options.setGroupName($groupName.sid); }
-		|   ('EXTID' id=stringLiteral { $options.setIntegrationSID($id.val); } | 'NOEXTID' { $options.setIntegrationSID("NOEXTID"); })
+		|   ext = extIdOption { $options.setIntegrationSID($ext.extID); }
 		|   'EXTNULL' { $options.setExtNull(true); }
 		|   po=propertyDrawOrder { $options.setOrder($po.order); }
 		|   'FILTER' { $options.setFilter(true); }
@@ -853,6 +849,11 @@ formPropertyOptionsList returns [FormPropertyOptions options]
 		|   sync = syncTypeLiteral { $options.setSync($sync.val); }
 		)*
 	;
+
+extIdOption returns [String extID]
+	:   'EXTID' id=stringLiteral { $extID = $id.val; }
+	|   'NOEXTID' { $extID = "NOEXTID"; }
+    ;
 
 formPropertyDraw returns [PropertyDrawEntity property]
 	:	id=ID              	{ if (inMainParseState()) $property = $formStatement::form.getPropertyDraw($id.text, self.getVersion()); }

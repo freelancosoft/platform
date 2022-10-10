@@ -21,6 +21,7 @@ import lsfusion.server.data.sql.exception.SQLHandledException;
 import lsfusion.server.data.stat.Stat;
 import lsfusion.server.data.stat.StatType;
 import lsfusion.server.data.where.Where;
+import lsfusion.server.language.form.ScriptingFormEntity;
 import lsfusion.server.logics.action.session.LocalNestedType;
 import lsfusion.server.logics.action.session.change.modifier.Modifier;
 import lsfusion.server.logics.classes.ValueClass;
@@ -289,7 +290,7 @@ public class GroupObjectEntity extends IdentityObject implements Instantiable<Gr
     }
 
     public String getIntegrationSID() {
-        return integrationSID != null ? integrationSID : getSID();
+        return integrationSID != null ? ScriptingFormEntity.isNoExtID(integrationSID) ? null : integrationSID : getSID();
     }   
 
     private boolean finalizedObjects;

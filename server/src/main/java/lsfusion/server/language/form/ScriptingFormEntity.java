@@ -594,7 +594,7 @@ public class ScriptingFormEntity {
 
         String integrationSID = options.getIntegrationSID();
         if (integrationSID != null)
-            property.setIntegrationSID(integrationSID.equals("NOEXTID") ? null : integrationSID);
+            property.setIntegrationSID(isNoExtID(integrationSID) ? null : integrationSID);
         
         String groupName = options.getGroupName();
         Group group = (groupName == null ? null : LM.findGroup(groupName));
@@ -844,7 +844,11 @@ public class ScriptingFormEntity {
     public List<ScriptingLogicsModule.TypedParameter> getTypedObjectsNames(Version version) {
         return getTypedObjectsNames(LM, form, version);
     }
-    
+
+    public static boolean isNoExtID(String integrationSID) {
+        return integrationSID != null && integrationSID.equals("NOEXTID");
+    }
+
     public static class RegularFilterInfo {
         LocalizedString caption;
         String keystroke;
