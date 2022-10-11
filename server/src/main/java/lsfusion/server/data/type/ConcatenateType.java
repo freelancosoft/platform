@@ -310,7 +310,7 @@ public class ConcatenateType extends AbstractType<Object[]> {
     }
 
     @Override
-    public String formatString(Object[] value) {
+    public String formatString(Object[] value, boolean ui) {
         throw new RuntimeException("Format ConcatenateType is not supported");
     }
 

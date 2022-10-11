@@ -7,7 +7,6 @@ import lsfusion.server.data.sql.syntax.SQLSyntax;
 import lsfusion.server.data.type.Type;
 import lsfusion.server.data.type.exec.TypeEnvironment;
 import lsfusion.server.logics.classes.data.DataClass;
-import lsfusion.server.logics.classes.data.StringClass;
 import lsfusion.server.physics.dev.i18n.LocalizedString;
 import org.postgresql.util.PGobject;
 
@@ -87,7 +86,7 @@ public class JSONClass extends DataClass<String> {
     }
 
     @Override
-    public String formatString(String value) {
+    public String formatString(String value, boolean ui) {
         return value;
     }
 

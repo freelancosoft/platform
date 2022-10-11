@@ -159,7 +159,7 @@ public class OrderClass extends DataClass<Object> implements FormulaUnionImpl {
     }
 
     @Override
-    public String formatString(Object value) {
+    public String formatString(Object value, boolean ui) {
         return value == null ? null : String.valueOf(value);
     }
 

@@ -121,7 +121,7 @@ public abstract class IntegralClass<T extends Number> extends TextBasedClass<T> 
     }
 
     @Override
-    public String formatString(T value) {
+    public String formatString(T value, boolean ui) {
         return value == null ? null : String.valueOf(value);
     }
 

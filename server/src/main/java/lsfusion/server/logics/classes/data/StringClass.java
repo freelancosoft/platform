@@ -77,7 +77,7 @@ public class StringClass extends TextBasedClass<String> {
     }
 
     @Override
-    public String formatString(String value) {
+    public String formatString(String value, boolean ui) {
         return value;
     }
 

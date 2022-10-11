@@ -137,7 +137,7 @@ public class DynamicFormatFileClass extends AbstractDynamicFormatFileClass<FileD
     }
 
     @Override
-    public String formatString(FileData value) {
+    public String formatString(FileData value, boolean ui) {
         return value != null ? Base64.encodeBase64StringUnChunked(value.getBytes()) : null;
     }
 }

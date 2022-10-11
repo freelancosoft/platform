@@ -48,8 +48,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.*;
 import java.util.concurrent.Callable;
@@ -180,7 +178,7 @@ public abstract class MainFrame extends JFrame {
             TimeZone.setDefault(timeZone);
         }
 
-        tFormats = new TFormats(localePreferences.twoDigitYearStart, localePreferences.dateFormat, localePreferences.timeFormat);
+        tFormats = new TFormats(localePreferences.twoDigitYearStart, localePreferences.dateFormat, localePreferences.timeFormat, timeZone);
     }
 
     private static void setupFormattableDates() {
