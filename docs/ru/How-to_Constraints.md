@@ -65,8 +65,8 @@ CONSTRAINT CHANGED(date(Order o)) AND posted(o)
 ### Решение
 
 ```lsf
-CONSTRAINT DROPPED(Order o IS Order) AND PREV(date(o)) < currentDate()
-    MESSAGE 'Запрещено удалять старые заказы';
+CONSTRAINT DROPPED(Order o IS Order) AND PREV( posted(o) )
+    MESSAGE 'Запрещено удалять проведенные заказы';
 ```
 
 При удалении заказа все его свойства будут иметь значение `NULL`. Поэтому для обращения к значениям его свойств нужно использовать оператор `PREV`.
